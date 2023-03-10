@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video 360</title>
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script>
+
+        AFRAME.registerComponent('play-pause', {
+            init: function() {
+                const MyVideo = document.querySelector('#video');
+                const videoControls = document.querySelector('#videoControls');
+
+                this.el.addEventListener('click', function(){
+                    if(MyVideo.paused){
+                        MyVideo.play();
+                        videoControls.setAttribute('src', '#pause');
+                    }else{
+                        MyVideo.pause();
+                        videoControls.setAttribute('src', '#play');
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+<a-scene>
+    <a-assets>
+        <img id="pause" src="./assets/pause.png" alt="pause">
+        <img id="play" src="./assets/play.png" alt="play">
+        <video id="video" src="./assets/playa.mp4" autoplay loop="true"></video>
+    </a-assets>
+
+    <a-camera>
+        <a-cursor color=white></a-cursor>
+    </a-camera>
+
+    <a-videosphere src="#video"></a-videosphere>
+    <a-image id="videoControls" src="#play" position="0 1 -2" scale="0.2 0.2 1" play-pause></a-image>
+</a-scene>
+</body>
+</html>
